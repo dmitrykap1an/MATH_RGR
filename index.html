@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>РГР</title>
+
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/white.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <section>
+          <h2 class="r-fit-text">
+            Расчетно-графическая работа
+            <br>
+            <video data-src="images/cat1.webm" autoplay loop></video>
+          </h2>
+        </section>
+
+        <section>
+          № 1.3<br>
+          <h3>Метод Гаусса</h3>
+          \[
+          \begin{cases}
+          x -2y + 3z = 6\\
+          2x - y - z = 3\\
+          3x - 4y + z = 2\\
+          \end{cases}
+          \]
+          Составим расширенную матрицу системы
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          2 & -1 & -1 & 3 \\
+          3 & -4 & 1 & 2 \\
+          \end{array}
+          \right)
+          \]
+          Прибавим ко 2 строке 1, умноженную на -2<br>
+          Прибавим к 3 строке 1, умноженную на -3<br>
+
+        </section>
+
+        <section>
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          0 & 3 & -7 & -9 \\
+          0 & 2 & -8 & -16 \\
+          \end{array}
+          \right)
+          \]
+
+          Умножим 3 строку на \(\frac{1}{2}\)<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          0 & 3 & -7 & -9 \\
+          0 & 1 & -4 & -8 \\
+          \end{array}
+          \right)
+          \]
+
+          Прибавим ко 2 строке 1, умноженную на -3<br>
+          Поменяем местами 1 и 2 строки<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          0 & 1 & -4 & -8 \\
+          0 & 0 & 5 & 15 \\
+          \end{array}
+          \right)
+          \]
+        </section>
+        <section>
+
+          Умножим 3 строку на \(\frac{1}{5}\)<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          0 & 1 & -4 & -8 \\
+          0 & 0 & 1 & 3 \\
+          \end{array}
+          \right)
+          \]
+          rang \(A\) = rang \(\widehat{A}\) \(\rightarrow\) система имеет решение<br>
+          Прибавим к 1 строке 2, умноженную на 2<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & 0 & -5 & -10 \\
+          0 & 1 & -4 & -8 \\
+          0 & 0 & 1 & 3 \\
+          \end{array}
+          \right)
+          \]
+
+          Прибавим к 1 строке 3, умноженную на 5<br>
+          Прибавим ко 2 строке 3, умноженную на 4<br>
+
+        </section>
+
+        <section>
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & 0 & 0 & 5 \\
+          0 & 1 & 0 & 4 \\
+          0 & 0 & 1 & 3 \\
+          \end{array}
+          \right)
+          \]
+
+          x = 5<br>
+          y = 4<br>
+          z = 3<br>
+
+          <h3>Модифицированный метод Гаусса</h3>
+
+          Составим расширенную матрицу системы
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          1 & -2 & 3 & 6 \\
+          2 & -1 & -1 & 3 \\
+          3 & -4 & 1 & 2 \\
+          \end{array}
+          \right)
+          \]
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <script src="dist/reveal.js"></script>
+  <script src="plugin/notes/notes.js"></script>
+  <script src="plugin/markdown/markdown.js"></script>
+  <script src="plugin/highlight/highlight.js"></script>
+  <script src="plugin/math/math.js"></script>
+  <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+      hash: true,
+      touch: true,
+      width: 1600,
+      height: 1000,
+      slideNumber: true,
+      autoPlayMedia: true,
+      preloadIframes: true,
+
+      katex: {
+        local: '/katex',
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+    });
+  </script>
+</body>
+
+</html>
