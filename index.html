@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -7,9 +7,11 @@
 
   <title>РГР</title>
 
+  <link rel="stylesheet" href="css/gauss.css">
   <link rel="stylesheet" href="dist/reset.css">
   <link rel="stylesheet" href="dist/reveal.css">
   <link rel="stylesheet" href="dist/theme/white.css">
+  <script type="text/javascript" src="js/gauss/gauss.js" defer></script>
 
   <!-- Theme used for syntax highlighted code -->
   <link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -46,9 +48,10 @@
           3 & -4 & 1 & 2 \\
           \end{array}
           \right)
+          \sim
           \]
-          Прибавим ко 2 строке 1, умноженную на -2<br>
-          Прибавим к 3 строке 1, умноженную на -3<br>
+          Прибавим ко (2) строке (1), умноженную на -2<br>
+          Прибавим к (3) строке (1), умноженную на -3<br>
 
         </section>
 
@@ -61,9 +64,10 @@
           0 & 2 & -8 & -16 \\
           \end{array}
           \right)
+          \sim
           \]
 
-          Умножим 3 строку на \(\frac{1}{2}\)<br>
+          Умножим (3) строку на \(\frac{1}{2}\)<br>
 
           \[
           \left(
@@ -73,10 +77,11 @@
           0 & 1 & -4 & -8 \\
           \end{array}
           \right)
+          \sim
           \]
 
-          Прибавим ко 2 строке 1, умноженную на -3<br>
-          Поменяем местами 1 и 2 строки<br>
+          Прибавим ко (2) строке (1), умноженную на -3<br>
+          Поменяем местами (1) и (2) строки<br>
 
           \[
           \left(
@@ -86,11 +91,12 @@
           0 & 0 & 5 & 15 \\
           \end{array}
           \right)
+          \sim
           \]
         </section>
         <section>
 
-          Умножим 3 строку на \(\frac{1}{5}\)<br>
+          Умножим (3) строку на \(\frac{1}{5}\)<br>
 
           \[
           \left(
@@ -100,9 +106,10 @@
           0 & 0 & 1 & 3 \\
           \end{array}
           \right)
+          \sim
           \]
           rang \(A\) = rang \(\widehat{A}\) \(\rightarrow\) система имеет решение<br>
-          Прибавим к 1 строке 2, умноженную на 2<br>
+          Прибавим к (1) строке (2), умноженную на 2<br>
 
           \[
           \left(
@@ -112,10 +119,11 @@
           0 & 0 & 1 & 3 \\
           \end{array}
           \right)
+          \sim
           \]
 
-          Прибавим к 1 строке 3, умноженную на 5<br>
-          Прибавим ко 2 строке 3, умноженную на 4<br>
+          Прибавим к (1) строке (3), умноженную на 5<br>
+          Прибавим ко (2) строке (3), умноженную на 4<br>
 
         </section>
 
@@ -128,6 +136,7 @@
           0 & 0 & 1 & 3 \\
           \end{array}
           \right)
+          \sim
           \]
 
           x = 5<br>
@@ -135,18 +144,321 @@
           z = 3<br>
 
           <h3>Модифицированный метод Гаусса</h3>
+          \[
+          \begin{cases}
+          x -2y + 3z = 6\\
+          2x - y - z = 3\\
+          3x - 4y + z = 2\\
+          \end{cases}
+          \]
+        </section>
 
-          Составим расширенную матрицу системы
+        <section>
+          Составим расширенную матрицу системы,<br>
+          заранее поставив (3) столбец на место (1), (1) на место (2), (2) на место (3)
           \[
           \left(
           \begin{array}{ccc|c}
-          1 & -2 & 3 & 6 \\
-          2 & -1 & -1 & 3 \\
-          3 & -4 & 1 & 2 \\
+          3 & 1 & -2 & 6 \\
+          -1 & 2 & -1 & 3 \\
+          1 & 3 & -4 & 2 \\
           \end{array}
           \right)
+          \sim
           \]
+
+          Прибавим ко (2) столбцу (1), умноженный на \(\frac{1}{3}\)<br>
+          Прибавим к (3) столбцу (1), умноженный на \(-\frac{1}{3}\)<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          3 & 1 & -2 & 6 \\
+          0 & \frac{7}{3} & -\frac{5}{3} & 5 \\
+          0 & \frac{8}{3} & -\frac{10}{3} & 0 \\
+          \end{array}
+          \right)
+          \sim
+          \]
+
+          Умножим (2) столбец на 3, а (3) столбец на \(\frac{3}{2}\)
         </section>
+        <section>
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          3 & 1 & -2 & 6 \\
+          0 & 7 & -5 & 15 \\
+          0 & 4 & -5 & 0 \\
+          \end{array}
+          \right)
+          \sim
+          \]
+
+          Прибавим к (1) строке (2), умноженную на \(-\frac{1}{7}\)<br>
+          Прибавим к (3) строке (2), умноженную на \(-\frac{4}{7}\)<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          3 & 0 & -\frac{9}{7} & \frac{27}{7} \\
+          0 & 7 & -5 & 15 \\
+          0 & 0 & -\frac{15}{7} & -\frac{60}{7} \\
+          \end{array}
+          \right)
+          \sim
+          \]
+
+          rang \(A\) = rang \(\widehat{A}\) \(\rightarrow\) система имеет решение<br>
+          Умножим (1) и (3) строки на 7
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          21 & 0 & -9 & 27 \\
+          0 & 7 & -5 & 15 \\
+          0 & 0 & -15 & -60 \\
+          \end{array}
+          \right)
+          \sim
+          \]
+
+        </section>
+
+        <section>
+          Прибавим к (1) строке (3), умноженную на \(-\frac{9}{15}\)<br>
+          Прибавим ко (2) строке (3), умноженную на \(-\frac{1}{3}\)<br>
+
+          \[
+          \left(
+          \begin{array}{ccc|c}
+          21 & 0 & 0 & 63 \\
+          0 & 7 & 0 & 35 \\
+          0 & 0 & -15 & -60 \\
+          \end{array}
+          \right)
+          \sim
+          \]
+
+          \(21z = 63 \rightarrow z = 3\)<br>
+          \(7x = 35 \rightarrow x = 5\)<br>
+          \(-15y = -60 \rightarrow y = 4\)<br>
+
+        </section>
+        <section>
+          Онлайн решатель системы линейных уравнений модифицированным методом Гаусса
+
+          <div class="container">
+            <mfenced open="{" close="">
+              <mtable>
+                <mtr class="input">
+                  <mtd padding="0">
+                    <label>
+                      <input class="x_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">x</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="y_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">y</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="z_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">z</span>&nbsp;=&nbsp;
+                    <label>
+                      <input class="result_button" value="0" autocomplete="off">
+                    </label>
+                  </mtd>
+              </mtr>
+                <br>
+                <mtr class="input">
+                  <mtd padding="0">
+                    <label>
+                      <input class="x_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                  <span class="char">x</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="y_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                  <span>y</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="z_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">z</span>&nbsp;=&nbsp;
+                    <label>
+                      <input class="result_button" value="0" autocomplete="off">
+                    </label>
+                  </mtd>
+                </mtr>
+                <br>
+                <mtr class="input">
+                  <mtd padding="0">
+                    <label>
+                      <input class="x_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">x</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="y_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">y</span>&nbsp;+&nbsp;
+                    <label>
+                      <input class="z_button" value="0" autocomplete="off">
+                    </label>&nbsp;
+                    <span class="char">z</span>&nbsp;=&nbsp;
+                    <label>
+                      <input class="result_button" value="0" autocomplete="off">
+                    </label>
+                  </mtd>
+                </mtr>
+                <br>
+              </mtable>
+            </mfenced>
+            <div id="form">
+              <input type="submit" value="Отправить" id="submit_button"  name="submit" class="submit">
+            </div>
+          </div>
+          <table class="my_table">
+            <thead>
+            <tr>
+              <th>X</th>
+              <th>Y</th>
+              <th>Z</th>
+            </tr>
+            </thead>
+            <tbody id="result"></tbody>
+          </table>
+        </section>
+      </section>
+      <!-- Таблица 2-->
+      <section>
+        <section>
+          № 2.3(4.73)<br>
+
+          <b>Проверить ортогональность следующих систем векторов в еквклидовом пространстве
+          \(R^3\) и дополнить их до ортогональных базисов:</b><br>
+
+          \(e_1 = (1, -2, 1, 3), e_2 = (2, 1, -3, 1)\)<br>
+
+          <p>1) Для начала проверим, являются ли вектора ортогональными. Вектора ортогональны тогда и только тогда, когда их скалярное произведение равно нулю:</p>
+          \(e_1*e_2 =  2 - 2 - 3 + 3 = 0\), следовательно, данные вектора ортогональны.<br><br>
+
+          <p>2)Найдем вектора, дополняющие систему до ортогонального базиса:</p>
+          Пусть \(e_3 = (x_1, x_2, x_3, x_4)\); Тогда найдем скалярные произведения \(e_3\) c \(e_1\), \(e_2\):
+          \[
+          \begin{cases}
+          x_1 - x_2 + x_3 +3x_4 = 0\\
+          2x_1 + x_2 -3x_3+x_4 = 0\\
+          \end{cases}
+          \]
+
+          Решим данную систему однородных линейных уравнений. Для этого приведем матрицу системы к ступенчатому виду, найдем общее и частное решение системы:<br>
+        </section>
+        <section>
+          \(
+          \begin{pmatrix}
+          1 & -2 & 1 & 3\\
+          2 & 1 & -3 & 1\\
+          \end{pmatrix}
+          \)
+
+          \(\sim\)
+
+          \(
+          \begin{pmatrix}
+          1 & -2 & 1 & 3\\
+          0 & 5 & -5 & -5
+          \end{pmatrix}
+          \)
+
+          \(\sim\)
+
+          \(
+          \begin{pmatrix}
+          1 & -2 & 1 & 3\\
+          0 & 1 & -1 & -1
+          \end{pmatrix}
+          \)<br><br>
+
+          <p>После элементарных преобразований получаем следующую систему:</p>
+          \[
+          \begin{cases}
+          x_1 - 2x_2 + x_3 +3x_4 = 0\\
+          x_2 - x_3 - x_4 = 0\\
+          \end{cases}
+          \]
+
+          Выразим \(x_1, x_2\) через \(x_3, x_4\):<br>
+
+          \[
+          \begin{cases}
+          x_2 = x_3 + x_4\\
+          x_1 = x_3 - x_4\\
+          \end{cases}
+          \]
+
+          Общее решение системы: \((x_3 - x_4; x_3 + x_4; x_3; x_4)\)<br>
+          Пример частного решения: \((-4; 2; -1; 3)\)<br>
+
+        </section>
+
+        <section>
+          Аналогично найдем \(e_4\):
+
+          \[
+          \begin{cases}
+          x_1 - 2x_2 + x_3 +3x_4 = 0\\
+          2x_1 + x_2 -3x_3 + x_4 = 0\\
+          -4x_1 + 2x_2 - 3x_3 + 3x_4 = 0
+          \end{cases}
+          \]
+
+
+          <p>Приводим матрицу к ступенчатому виду:</p><br>
+
+          \(
+          \begin{pmatrix}
+          1 & -2 & 1 & 3\\
+          2 & 1 & -3 & 1\\
+          -4 & 2 & -3 & 3
+          \end{pmatrix}
+          \)
+
+          \(\sim\)
+
+          \(
+          \begin{pmatrix}
+          1 & -2 & 1 & 3\\
+          0 & 1 & -1 & -1\\
+          0 & 0 & 1 & -3\\
+          \end{pmatrix}
+          \)<br><br>
+
+          Выразим \(x_1, x_2\) через \(x_3, x_4\):<br>
+
+        </section>
+
+        <section>
+          \[
+          \begin{cases}
+          x_3 = 3x_4\\
+          x_2 = 4x_4\\
+          x_1 = 2x_4
+          \end{cases}
+          \]
+
+
+          Общее решение системы: \((2x_4;4x_4;3x_4; x_4)\)<br><br>
+
+          Пример частного решения: \((2; 4; 3; 1)\)<br><br>
+
+          Ответ: \(e_3 = (-4;2;-1;3); e_4 = (2;4;3;1)\)
+        </section>
+      </section>
+      <section>
+        № 3.3<br>
+      </section>
+      <section>
+        № 4.3<br>
       </section>
     </div>
   </div>
