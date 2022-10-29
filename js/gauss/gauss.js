@@ -8,15 +8,16 @@ form.addEventListener("click", onsubmit)
 
 function onsubmit(){
 
-    const x = checkX()
+    const x = checkX() //проверка валидности введенных данных пользователем, возвращает объект с полями mass - массив из чисел x,
+    // error - boolean(true в случае ошибки), message(в случае отсутствия ошибки вернет пустую строку), остальные функции по аналогии
     const y = checkY()
     const z = checkZ()
     const result = checkResult()
-    if((!x.error && y.error && z.error && result.error)){
+    if((!x.error && y.error && z.error && result.error)){ //проверка валидности данных
         gauss(x, y, z, result)
     }
     else{
-        alert(x.message + y.message + z.message + result.message)
+        alert(x.message + y.message + z.message + result.message) //вывод сообщения в случаи невалидных данных
     }
 
 }
@@ -27,7 +28,11 @@ function gauss(x, y, z, result){
     let s3 = [x.mass[2], y.mass[2], z.mass[2], result.mass[2]] //cтроки
     const n = 3
     for(let k = 0; k < n-1; k++){
-            let row
+        //TODO добавить логику приведения уравнения к треугольному виду, с условием, что а_{k,k} != 0(элемент, находящийся на главной диагонали)
+        //TODO и дальнейшее нахождение корней(важно, чтобы использовался именно модифицированный алгоритм Гаусса, а не классический,
+        // так как в случае работы с числами с плавающей точкой может быть потеря части результата
+
+
     }
 }
 
@@ -36,8 +41,8 @@ function replaceRow(s1, s2, s3){
     let row2 = [s1[1], s2[1], s3[1]]
     let row3 = [s1[2], s2[2], s3[2]] //столбцы
 
-    let maxS1 = s1.max
-    let indexOfMaxS1 = s1.indexOf(maxS1)
+    let maxS1 = s1.max //находим максимальный элемент первой строки
+    let indexOfMaxS1 = s1.indexOf(maxS1)//находим индекс максимального элемента
 
     let maxS2 = s2.max
     let indexOfMaxS2 = s2.indexOf(maxS2)
@@ -46,6 +51,8 @@ function replaceRow(s1, s2, s3){
     let indexOfMaxS3 = s3.indexOf(maxS3)
 
     if (indexOfMaxS1 !== indexOfMaxS2 && indexOfMaxS1 !== indexOfMaxS3 && indexOfMaxS2 !== indexOfMaxS3){
+        //TODO добавить логику перестановки столбцов, для того чтобы на главных диагоналях стояли максимальные элементы строки
+        // в соответствии с модифицированным алгоритмом Гаусса
     }
 
 
@@ -63,14 +70,13 @@ function checkX(){
     if(mass.length === 3){
         return{
             mass: mass,
-            x1: mass[0],
-            x2: mass[1],
-            x3: mass[2],
-            error: false
+            error: false,
+            message: ""
         }
     }
     else{
         return{
+            mass: [],
             error: true,
             message: "Заполните все поля X\n"
         }
@@ -89,14 +95,13 @@ function checkY(){
     if(mass.length === 3){
         return{
             mass: mass,
-            y1: mass[0],
-            y2: mass[1],
-            y3: mass[2],
-            error: false
+            error: false,
+            message: ""
         }
     }
     else{
         return{
+            mass: [],
             error: true,
             message: "Заполните все поля Y\n"
         }
@@ -115,14 +120,13 @@ function checkZ(){
     if(mass.length === 3){
         return{
             mass: mass,
-            z1: mass[0],
-            z2: mass[1],
-            z3: mass[2],
-            error: false
+            error: false,
+            message: ""
         }
     }
     else{
         return{
+            mass: [],
             error: true,
             message: "Заполните все поля Z\n"
         }
@@ -141,14 +145,13 @@ function checkResult(){
     if(mass.length === 3){
         return{
             mass: mass,
-            result1: mass[0],
-            result2: mass[1],
-            result3: mass[2],
-            error: false
+            error: false,
+            message: ""
         }
     }
     else{
         return{
+            mass: [],
             error: true,
             message: "Заполните все поля Result\n"
         }
