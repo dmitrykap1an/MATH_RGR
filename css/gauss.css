@@ -66,3 +66,21 @@ mfenced {
     border-color: black;
     overflow: hidden;
 }
+
+.image{
+    height: 600px;
+    width: 1000px;
+    border-radius: 10px;
+    border-color: black;
+    border-width: medium;
+    border-style: solid;
+}
+
+figcaption{
+    text-align: center;
+    font-size: 5px;!important;
+}
+
+.image_container{
+    display: flex;
+}
