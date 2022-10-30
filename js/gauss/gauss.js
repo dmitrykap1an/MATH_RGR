@@ -27,79 +27,118 @@ function gauss(x, y, z, result){
     let s2 = [x.mass[1], y.mass[1], z.mass[1], result.mass[1]]
     let s3 = [x.mass[2], y.mass[2], z.mass[2], result.mass[2]] //cтроки
     let A = [s1, s2, s3]
-    console.log("A is", A[0] === s1, A, s1)
     const n = 3
-    replaceString(A)
-        //TODO добавить логику приведения уравнения к треугольному виду, с условием, что а_{k,k} != 0(элемент, находящийся на главной диагонали)
-        //TODO и дальнейшее нахождение корней(важно, чтобы использовался именно модифицированный алгоритм Гаусса, а не классический,
-        // так как в случае работы с числами с плавающей точкой может быть потеря части результата
-}
+    while(!isEnd(A)){
 
-function replaceString(A){
-    let maxS1 = maxAbs(A[0].slice(0,3)) //находим максимальный элемент первой строки
-    let indexOfMaxS1 = A[0].indexOf(maxS1)//находим индекс максимального элемента
+        A = replaceString(A)
+        if(A[1][0] !== 0){
 
-    let maxS2 = maxAbs(A[1].slice(0,3))
-    let indexOfMaxS2 = A[1].indexOf(maxS2)
+            if(A[0][0] !== 0) {
+                let k = -(A[1][0] / A[0][0])
+                console.log("k = " + k)
+                for (let i = 0; i <= n; i++) {
+                    A[1][i] += k * A[0][i]
+                }
+            }
+            else{
+                alert("невозможно найти корни уравнения")
+                return
+            }
+        }
+        A = replaceString(A)
+        if(A[2][0] !== 0){
+            if(A[0][0]){
+                let k = -(A[2][0] / A[0][0])
+                for(let i = 0; i <= n; i++ ){
+                    A[2][i] += k * A[0][i]
+                }
+            }
+            else{
+                alert("невозможно найти корни уравнения")
+                return
+            }
+        }
+        A = replaceString(A)
+        if(A[2][1] !== 0){
+            if(A[1][1]){
+                let k = -(A[2][1] / A[1][1])
+                for(let i = 0; i <= n; i++ ){
+                    A[2][i] += k * A[1][i]
+                }
+            }
+            else{
+                alert("невозможно найти корни уравнения")
+                return
+            }
+        }
 
-    let maxS3 = maxAbs(A[2].slice(0,3))
-    let indexOfMaxS3 = A[2].indexOf(maxS3)
-
-
-
-    if (indexOfMaxS1 !== indexOfMaxS2 && indexOfMaxS1 !== indexOfMaxS3 && indexOfMaxS2 !== indexOfMaxS3){
-
-        let temp1 = A[indexOfMaxS1]
-        A[indexOfMaxS1] = A[0]
-
-        let indexOfMaxTemp1 = temp1.indexOf(maxAbs(temp1.slice(0,3)))
-        let temp2 = A[indexOfMaxTemp1]
-        A[indexOfMaxTemp1] = temp1
-
-        let indexOfMaxTemp2 = temp2.indexOf(maxAbs(temp2.slice(0,3)))
-        A[indexOfMaxTemp2] = temp2
-        return A
     }
-    else if(indexOfMaxS1 === indexOfMaxS2 && indexOfMaxS1 === indexOfMaxS3){
-        
-        let temp1 = A[indexOfMaxS1]
-        A[indexOfMaxS1] = A[0]
-
-        let indexOfMaxTemp1 = temp1.indexOf(maxAbs(temp1.slice(0,3)))
-        let temp2 = A[indexOfMaxTemp1]
-        A[indexOfMaxTemp1] = temp1
-
-        let indexOfMaxTemp2 = temp2.indexOf(maxAbs(temp2.slice(0,3)))
-        A[indexOfMaxTemp2] = temp2
+    let resultZ = A[2][3] / A[2][2]
+    let resultY = (A[1][3] - A[1][2] * resultZ) / A[1][1]
+    let resultX = (A[0][3] - A[0][2] * resultZ - A[0][1] * resultY)/A[0][0]
+    if(Math.round(resultX) - resultX<= 0.003){
+        resultX = Math.round(resultX)
     }
-    else if(indexOfMaxS1 === indexOfMaxS2 && indexOfMaxS1 !== indexOfMaxS3){
-
+    if(Math.round(resultY) - resultY<= 0.003){
+        resultY = Math.round(resultY)
     }
-
-    //TODO добавить логику перестановки столбцов, для того чтобы на главных диагоналях стояли максимальные элементы строки
-    // в соответствии с модифицированным алгоритмом Гаусса
-
-
-
-}
-
-function maxAbs(A){
-    if(Math.max(...A.slice(0, 3)) >= Math.abs(Math.min(...A))){
-        return Math.max(...A)
+    if(Math.round(resultZ) - resultZ<= 0.0003){
+        resultZ = Math.round(resultZ)
+    }
+    if(!isNaN(resultX) && !isNaN(resultY) && !isNaN(resultZ)){
+        alert("x = " + resultX + "\n" + "y = " + resultY + "\n" + "z = " + resultZ)
     }
     else{
-        return -Math.abs(Math.min(...A))
+        alert("Система не имеет решений")
     }
+
 }
 
-function swap2(a, b){
-    let c = a
-    a = b
-    b = c
-    return{
-        first: a,
-        second: b,
+function checkResultMatrix(resultX, resultY, resultZ, a){
+    if(
+        a[0][0] * resultX + a[0][1] * resultY + a[0][2] * resultZ === a[0][3] &&
+        a[1][0] * resultX + a[1][1] * resultY + a[1][2] * resultZ === a[1][3] &&
+        a[2][0] * resultX + a[2][1] * resultY + a[2][2] * resultZ === a[2][3]
+    ){
+        alert("x = " + resultX + "\n" + "y = " + resultY + "\n" + "z = " + resultZ)
     }
+    else if(
+        a[0][0] * resultX + a[0][1] * resultZ + a[0][2] * resultY === a[0][3] &&
+        a[1][0] * resultX + a[1][1] * resultZ + a[1][2] * resultY === a[1][3] &&
+        a[2][0] * resultX + a[2][1] * resultZ + a[2][2] * resultY === a[2][3]
+    ){
+        alert("x = " + resultX + "\n" + "y = " + resultZ + "\n" + "z = " + resultY)
+    }
+    else if(
+        a[0][0] * resultY + a[0][1] * resultX + a[0][2] * resultZ === a[0][3] &&
+        a[1][0] * resultY + a[1][1] * resultX + a[1][2] * resultZ === a[1][3] &&
+        a[2][0] * resultY + a[2][1] * resultX + a[2][2] * resultZ === a[2][3]
+    ) {
+        alert("x = " + resultY + "\n" + "y = " + resultX + "\n" + "z = " + resultZ)
+    }
+    else if(
+        a[0][0] * resultY + a[0][1] * resultZ + a[0][2] * resultX === a[0][3] &&
+        a[1][0] * resultY + a[1][1] * resultZ + a[1][2] * resultX === a[1][3] &&
+        a[2][0] * resultY + a[2][1] * resultZ + a[2][2] * resultX === a[2][3]
+    ){
+        alert("x = " + resultY + "\n" + "y = " + resultZ + "\n" + "z = " + resultX)
+    }
+    else if(
+        a[0][0] * resultZ + a[0][1] * resultX + a[0][2] * resultY === a[0][3] &&
+        a[1][0] * resultZ + a[1][1] * resultX + a[1][2] * resultY === a[1][3] &&
+        a[2][0] * resultZ + a[2][1] * resultX + a[2][2] * resultY === a[2][3]
+    ){
+        alert("x = " + resultZ + "\n" + "y = " + resultX + "\n" + "z = " + resultY)
+    }
+    else{
+        alert("x = " + resultZ + "\n" + "y = " + resultY + "\n" + "z = " + resultX)
+    }
+
+
+}
+
+function isEnd(A){
+   return A[1][0] === 0 && A[2][0] === 0 && A[2][1] === 0
 }
 
 function checkX(){
@@ -200,5 +239,167 @@ function checkResult(){
             message: "Заполните все поля Result\n"
         }
     }
+}
+
+function replaceString(a) {
+
+    let anew = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    let amount = 0
+    let new_amount = 0
+
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            anew[i][j] = a[j][i]
+        }
+    }
+
+    let max_index = a[0].indexOf(Math.max(a[0]))
+    for (let i = 0; i < 3; i++) {
+        if (a[0][i] === a[0][max_index]) {
+            amount += 1
+        }
+
+    }
+
+    if (amount === 1) {
+        if (anew[0][0] !== a[0][max_index]) {
+            let temp = anew[0]
+            anew[0] = anew[max_index]
+            anew[max_index] = temp
+
+        }
+
+    } else if (amount === 2) {
+        let nm = a[0].indexOf(Math.min(a[0]))
+        let m1
+        let m11
+        let m2
+        let m22
+        if (nm === 0) {
+            m1 = a[1][1]
+            m11 = 1
+            m2 = a[1][2]
+            m22 = 2
+        } else if (nm === 1) {
+            m1 = a[1][0]
+            m11 = 0
+            m2 = a[1][2]
+            m22 = 2
+        } else {
+            m1 = a[1][0]
+            m11 = 0
+            m2 = a[1][1]
+            m22 = 1
+        }
+        if (m1 > m2) {
+            let temp = anew[0]
+            anew[0] = anew[m22]
+            anew[m22] = temp
+        } else {
+            let temp = anew[0]
+            anew[0] = anew[m11]
+            anew[m11] = temp
+        }
+    }
+
+
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            a[i][j] = anew[j][i]
+        }
+    }
+
+    max_index = a[1].indexOf(Math.max(a[1]))
+    for (let i = 0; i < 3; i++) {
+        if (a[1][i] === a[1][max_index]) {
+            new_amount += 1
+        }
+    }
+
+
+    if (amount === 3) {
+        if (new_amount === 1) {
+            if (anew[1][1] !== a[1][max_index]) {
+                let temp = anew[0]
+                anew[0] = anew[max_index]
+                anew[max_index] = temp
+            }
+        } else if (new_amount === 2) {
+            let nm = a[1].indexOf(Math.min(a[1]))
+            let m1
+            let m11
+            let m2
+            let m22
+            if (nm === 0) {
+                m1 = a[2][1]
+                m11 = 1
+                m2 = a[2][2]
+                m22 = 2
+            } else if (nm === 1) {
+                m1 = a[2][0]
+                m11 = 0
+                m2 = a[2][2]
+                m22 = 2
+            } else {
+                m1 = a[2][0]
+                m11 = 0
+                m2 = a[2][1]
+                m22 = 1
+            }
+            if (m1 > m2) {
+                let temp = anew[1]
+                anew[1] = anew[m22]
+                anew[m22] = temp
+            } else {
+                let temp = anew[1]
+                anew[1] = anew[m11]
+                anew[m11] = temp
+            }
+        }
+    } else {
+        if (anew[1][1] === anew[2][1]) {
+            if (anew[2][1] < anew[2][2]) {
+                let temp = anew[1]
+                anew[1] = anew[2]
+                anew[2] = temp
+            }
+        } else {
+            if (anew[1][1] < anew[2][1]) {
+                let temp = anew[1]
+                anew[1] = anew[2]
+                anew[2] = temp
+            }
+        }
+
+    }
+
+    for(let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            a[i][j] = anew[j][i]
+        }
+    }
+
+    if (new_amount === 2 && amount === 3){
+        if (a[2][2] < a[2][0]){
+            let temp = anew[0]
+            anew[0] = anew[2]
+            anew[2] = temp
+        }
+    }
+    else if (new_amount === 3 && amount === 3){
+        if(anew[2][2] !== a[2][max_index]){
+            let temp = anew[2]
+            anew[2] = anew[max_index]
+            anew[max_index] =  temp
+        }
+    }
+    for(let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            a[i][j] = anew[j][i]
+        }
+    }
+
+    return a
+
 }
 
